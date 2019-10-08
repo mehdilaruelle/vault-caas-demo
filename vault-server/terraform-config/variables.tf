@@ -28,11 +28,6 @@ variable "int_common_name" {
   description = "The common name of the Intermediate CA."
 }
 
-variable "int_common_name" {
-  default     = "Intermediate CA"
-  description = "The common name of the Intermediate CA."
-}
-
 variable "int_ou" {
   default     = "demo"
   description = "The OU of the Intermediate CA."

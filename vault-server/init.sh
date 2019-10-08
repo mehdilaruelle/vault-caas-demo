@@ -21,8 +21,8 @@ for instance in "${list_instances[@]}"; do
   VAULT_ADDR=$VAULT_ADDR vault operator unseal "$(echo $VAULT_INIT | jq -r .unseal_keys_b64[2])"
 done
 
-vault status
+VAULT_ADDR=$VAULT_ADDR vault status
 
-vault login "$(echo $VAULT_INIT | jq -r .root_token)"
+VAULT_ADDR=$VAULT_ADDR vault login "$(echo $VAULT_INIT | jq -r .root_token)"
 
-echo "Make an: export VAULT_ADDR=$(terraform output vault_endpoint)"
+echo "Make an: export VAULT_ADDR=https://$(terraform output vault_endpoint)"
