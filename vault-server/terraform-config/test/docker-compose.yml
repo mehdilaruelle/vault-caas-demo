@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  terraform:
+    image: hashicorp/terraform:light
+    container_name: terraform
+    environment:
+      - VAULT_TOKEN=${VAULT_DEV_ROOT_TOKEN_ID}
+      - VAULT_ADDR=http://vault:8200
+    depends_on:
+      - vault
+    volumes:
+      - ../:/app/
+    working_dir: /app/
+    command: apply -auto-approve
+
+  vault:
+    image: vault:1.2.2
+    container_name: ${VAULT_HOST}
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_DEV_ROOT_TOKEN_ID}
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
